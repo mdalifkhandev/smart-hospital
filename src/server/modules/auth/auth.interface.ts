@@ -1,7 +1,9 @@
-export type TUser={
-    firstName:string
-    lastName:string
+export type TUserCreated={
+    name:string
+    role:'user'|'seller'
     email:string
+    phone:number
+    address:string
     password:string
-    isDelete:boolean
+    confirmPassword:string
 }

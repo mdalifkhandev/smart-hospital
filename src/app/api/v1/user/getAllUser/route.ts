@@ -16,14 +16,14 @@ export async function GET() {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("User fetch error:", error);
 
     return NextResponse.json(
       {
         success: false,
         message: "Failed to retrieve users",
-        error: error.message || error,
+        error:  error,
       },
       { status: 500 }
     );

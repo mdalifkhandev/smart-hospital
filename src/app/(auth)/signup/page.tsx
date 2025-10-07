@@ -8,14 +8,21 @@ import Link from 'next/link';
 import CheckBox from '@/components/form/CheckBox';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Select from '@/components/form/Select';
-import { TUserRegister } from '@/interface';
-import { useForm } from 'react-hook-form';
+import { useUserRegister } from '@/hooks/authHooks';
+import toast from 'react-hot-toast';
+import { TUserCreated } from '@/server/modules/auth/auth.interface';
 
-const page = () => {
+const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-    const method=useForm()
-    const handleSubmit = (data:TUserRegister) => {
+    const {mutate,status}=useUserRegister()
+    const handleSubmit = (data:TUserCreated) => {
+        const matchPassword=data.password===data.confirmPassword
+        if(!matchPassword){
+            return toast.error('password not match')
+        }
+        mutate(data)
+        console.log(data);
         
     }
     return (
@@ -86,12 +93,7 @@ const page = () => {
                             name='confirmPassword'
                             iconRight={showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
                             toggolIcon={() => setShowConfirmPassword(!showConfirmPassword)}
-                            rules={{ required: "Confirm Password is Required",
-                                validate:(value:string)=>{
-                                    const password=method.getValues('password')
-                                    return value===password ||'Password and Confirm Password doesnot match'
-                                }
-                             }}
+                            rules={{ required: "Confirm Password is Required", }}
                         />
 
 
@@ -101,7 +103,7 @@ const page = () => {
                             rules={{ required: true }}
                         />
                         <p className="text-sm text-center mt-2">
-                            Don't have an account?{" "}
+                            Don&apos;t have an account?{" "}
                             <Link href="/register" className="text-blue-500 hover:underline">
                                 Register
                             </Link>
@@ -113,4 +115,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Signup;

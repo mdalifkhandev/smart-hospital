@@ -30,6 +30,10 @@ const userSchema=new Schema<TUserCreated>({
     address:{
         type:String,
         required:true
+    },
+    tram:{
+        type:Boolean,
+        required:true
     }
 
 },{

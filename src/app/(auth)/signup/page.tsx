@@ -15,15 +15,11 @@ import { TUserCreated } from '@/server/modules/auth/auth.interface';
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-    const {mutate,status}=useUserRegister()
+    const {mutate}=useUserRegister()
     const handleSubmit = (data:TUserCreated) => {
         const matchPassword=data.password===data.confirmPassword
-        if(!matchPassword){
-            return toast.error('password not match')
-        }
+        if(!matchPassword) return toast.error('Confirm Password Not Match')
         mutate(data)
-        console.log(data);
-        
     }
     return (
         <div>
@@ -32,7 +28,7 @@ const Signup = () => {
             </div>
             <p className='my-4 font-outfit font-normal text-[16px] leading-[100%] tracking-[0%] text-center'>Welcome Back! Please enter your details.</p>
             <div className='flex justify-center '>
-                <div className='bg-[#EEF9FE] rounded-2xl'>
+                <div className='bg-[#EEF9FE] rounded-2xl max-w-md w-full'>
                     <div className="flex justify-center items-center">
                         <Image
                             src={image}
@@ -77,8 +73,6 @@ const Signup = () => {
                             name='address'
                             rules={{ required: true }}
                         />
-
-
                         <Input
                             label='Password'
                             type={showPassword ? 'text' : 'password'}
@@ -95,17 +89,16 @@ const Signup = () => {
                             toggolIcon={() => setShowConfirmPassword(!showConfirmPassword)}
                             rules={{ required: "Confirm Password is Required", }}
                         />
-
-
                         <CheckBox
                             label='By creating an account, I accept the Terms & Conditions & Privacy Policy.'
                             name='tram'
                             rules={{ required: true }}
                         />
                         <p className="text-sm text-center mt-2">
-                            Don&apos;t have an account?{" "}
-                            <Link href="/register" className="text-blue-500 hover:underline">
-                                Register
+                            {/* Don&apos;t have an account?{" "} */}
+                            Already  have an account?
+                            <Link href="/login" className="text-blue-500 hover:underline">
+                                Login
                             </Link>
                         </p>
                     </Form>

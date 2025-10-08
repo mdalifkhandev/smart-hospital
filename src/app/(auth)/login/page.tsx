@@ -7,11 +7,14 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import image from '@/assets/logosignup.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useUserLogin } from '@/hooks/authHooks';
+import { TUserLogin } from '@/server/modules/auth/auth.interface';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const handleSubmit = (data: { email: string, password: string }) => {
-        console.log(data);
+    const {mutate}=useUserLogin()
+    const handleSubmit = (data: TUserLogin) => {
+        mutate(data)
     }
     return (
         <div>

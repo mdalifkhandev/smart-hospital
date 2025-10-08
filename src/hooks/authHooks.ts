@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios"
-import { TUserCreated } from "@/server/modules/auth/auth.interface"
+import { TUserCreated, TUserLogin } from "@/server/modules/auth/auth.interface"
 import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 
@@ -20,5 +20,19 @@ export const useUserRegister = () => {
     })
 }
 
-
-
+export const useUserLogin=()=>{
+    return useMutation({
+        mutationFn:async (data:TUserLogin)=>{
+            const result=await axiosInstance.post('/auth/login',data)
+            console.log(result.data.data);
+            
+            return result
+        },
+        onSuccess:()=>{
+            toast.success('User Login successfully')
+        },
+        onError:()=>{
+            toast.error('User Login faild')
+        }
+    })
+}

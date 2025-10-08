@@ -5,6 +5,12 @@ export type TUserCreated = {
     email: string
     address: string
     password: string
-    confirmPassword: string
+    confirmPassword?: string
     tram: boolean
+}
+
+export type TUserLogin={
+    email:string
+    password:string
+    tram?:boolean
 }

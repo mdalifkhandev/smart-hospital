@@ -25,7 +25,7 @@ const userSchema=new Schema<TUserCreated>({
     },
     confirmPassword:{
         type:String,
-        required:true
+        required:false
     },
     address:{
         type:String,

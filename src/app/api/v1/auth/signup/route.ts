@@ -6,8 +6,6 @@ export async function POST(req: Request) {
     try {
         await connectDB()
         const data = await req.json()
-        console.log(data,'aaaaa');
-        
         const user = await AuthService.userCreadedFromDB(data)
         return NextResponse.json({
             status: 201,

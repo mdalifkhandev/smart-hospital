@@ -20,14 +20,14 @@ export async function POST(req: Request) {
         return NextResponse.json({
             status: 201,
             success: true,
-            message: 'User created successfully',
+            message: 'User login successfully',
             data: user
         }, { status: 201 })
     } catch (err: unknown) {
         return NextResponse.json({
             status: 500,
             success: false,
-            message: 'User created faild',
+            message: 'User login faild',
             data: err
         }, { status: 500 })
     }

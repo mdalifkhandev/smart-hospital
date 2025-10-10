@@ -6,7 +6,7 @@ export const createToken = (
     expire?: jwt.SignOptions['expiresIn']
 ) => {
     const options = expire ? { expiresIn: expire } : undefined;
-    return jwt.sign({ data }, secret, options);
+    return jwt.sign( data , secret, options);
 }
 
 export const tokenVerify=(token:string,secret:string)=>{

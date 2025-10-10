@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.2",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "@types/bcrypt": "^6.0.0",
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",

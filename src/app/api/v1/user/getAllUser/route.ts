@@ -1,7 +1,9 @@
+import { TDecodedToken } from "@/interface";
 import { connectDB } from "@/server/lib/db";
 import { tokenVerify } from "@/server/lib/token";
 import { User } from "@/server/modules/auth/auth.model";
 import { UserService } from "@/server/modules/user/user.service";
+import { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -9,20 +11,19 @@ export async function GET() {
   try {
     await connectDB();
 
-    const cookiesStore=cookies()
+    const cookiesStore = cookies()
 
-    const token=(await cookiesStore).get('token')?.value as string
+    const token = (await cookiesStore).get('token')?.value as string
 
-    const decoded = tokenVerify(token, "Alif");
-    let email: string | undefined;
-    if (typeof decoded === "object" && decoded !== null && "data" in decoded && typeof (decoded as any).data?.email === "string") {
-      email = (decoded as any).data.email;
-    } else {
-      throw new Error("Invalid token payload: email not found");
+    const decoded = tokenVerify(token, "Alif") as JwtPayload
+    const email = decoded.email
+    if (!email) {
+      throw new Error('Pleace login and try again')
     }
+
     const user = await User.findOne({ email });
-    
-    if(!user){
+
+    if (!user) {
       throw new Error('Pleace login and try again')
     }
     const users = await UserService.getAllUser();
@@ -42,7 +43,7 @@ export async function GET() {
       {
         success: false,
         message: "Failed to retrieve users",
-        error:  error,
+        error: error,
       },
       { status: 500 }
     );

@@ -1,4 +1,3 @@
-import { TDecodedToken } from "@/interface";
 import { connectDB } from "@/server/lib/db";
 import { tokenVerify } from "@/server/lib/token";
 import { User } from "@/server/modules/auth/auth.model";

@@ -11,54 +11,54 @@ export async function GET(request: Request) {
   try {
     await connectDB();
 
-    const cookieStore = cookies();
-    const token = (await cookieStore).get('token')?.value;
+    // const cookieStore = cookies();
+    // const token = (await cookieStore).get('token')?.value;
 
-    if (!token) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Authentication token missing",
-        },
-        { status: 401 }
-      );
-    }
+    // if (!token) {
+    //   return NextResponse.json(
+    //     {
+    //       success: false,
+    //       message: "Authentication token missing",
+    //     },
+    //     { status: 401 }
+    //   );
+    // }
 
-    let decoded;
-    try {
-      decoded = tokenVerify(token, "Alif") as JwtPayload;
-    } catch (error) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid token",
-        },
-        { status: 401 }
-      );
-    }
+    // let decoded;
+    // try {
+    //   decoded = tokenVerify(token, "Alif") as JwtPayload;
+    // } catch (error) {
+    //   return NextResponse.json(
+    //     {
+    //       success: false,
+    //       message: "Invalid token",
+    //     },
+    //     { status: 401 }
+    //   );
+    // }
 
-    const email = decoded.email;
-    if (!email) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Please login and try again",
-        },
-        { status: 401 }
-      );
-    }
+    // const email = decoded.email;
+    // if (!email) {
+    //   return NextResponse.json(
+    //     {
+    //       success: false,
+    //       message: "Please login and try again",
+    //     },
+    //     { status: 401 }
+    //   );
+    // }
 
-    // Verify the user exists
-    const user = await User.findOne({ email });
-    if (!user) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "User not found",
-        },
-        { status: 404 }
-      );
-    }
+    // // Verify the user exists
+    // const user = await User.findOne({ email });
+    // if (!user) {
+    //   return NextResponse.json(
+    //     {
+    //       success: false,
+    //       message: "User not found",
+    //     },
+    //     { status: 404 }
+    //   );
+    // }
 
     // Get all users
     const users = await UserService.getAllUser();

@@ -6,7 +6,10 @@ import { TUserCreated } from '@/server/modules/auth/auth.interface';
 import React from 'react';
 
 const Test = () => {
-    const { data, isLoading, isError } = useGetAllUser();
+    const { data, isLoading, isError,error,status } = useGetAllUser();
+
+    console.log(data,isLoading,isError,error,status);
+    
 
     if (isLoading) return <p className="p-4">Loading users...</p>;
     if (isError) return <p className="p-4 text-red-500">Failed to load users.</p>;

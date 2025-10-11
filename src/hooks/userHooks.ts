@@ -1,14 +1,22 @@
+// hooks/userHooks.js
 'use client';
 
 import axiosInstance from "@/lib/axios"
-import {  useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 
 export const useGetAllUser = () => {
   return useQuery({
-    queryKey: ['user'],
+    queryKey: ['users'], 
     queryFn: async () => {
-      const result = await axiosInstance.get('/user/getalluser');
-      return result.data;
+      try {
+        const response = await axiosInstance.get('/api/user/getalluser');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        throw new Error('Failed to fetch users');
+      }
     },
+    retry: 2, 
+    staleTime: 5 * 60 * 1000, 
   });
 };

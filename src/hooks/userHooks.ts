@@ -9,7 +9,7 @@ export const useGetAllUser = () => {
     queryKey: ['users'], 
     queryFn: async () => {
       try {
-        const response = await axiosInstance.get('/api/user/getalluser');
+        const response = await axiosInstance.get('/user/getalluser');
         return response.data;
       } catch (error) {
         console.error('Error fetching users:', error);
